@@ -45,10 +45,10 @@
             color: #444;
             text-align: left;
         }
-        input[type="password"], input[type="checkbox"] {
+        input[type="password"], input[type="text"], input[type="checkbox"] {
             margin-top: 5px;
         }
-        input[type="password"] {
+        input[type="password"], input[type="text"] {
             padding: 10px;
             font-size: 1rem;
             border: 1px solid #ddd;
@@ -56,7 +56,7 @@
             outline: none;
             transition: border-color 0.3s ease;
         }
-        input[type="password"]:focus {
+        input[type="password"]:focus, input[type="text"]:focus {
             border-color: #007BFF;
         }
         button {
@@ -81,20 +81,21 @@
         }
     </style>
     <script>
-        const password = "f0ed50e16ea42dc343ec55005c5c3d543e243679c95690215a226482bea8188c5f"; // Replace with your password
-
-        // Get the file name dynamically
-        const pdfFileName = "7f8a3c1d5e9b241a6d8e7f9c3b2a5d6e1f8a3c7b9d6e4f2a1b5c8e7d9f6a3c2"; // This should be dynamically provided
-        const pdfURL = `https://admit-cards.akshargyanmanch.site/${pdfFileName}.pdf`; // PDF URL with dynamic file name
+        // Predefined file name and password for validation
+        const validFileName = "a";  // Example file name
+        const validPassword = "a";  // Example password
+        const pdfLink = "https://admit-cards.akshargyanmanch.site/7f8a3c1d5e9b241a6d8e7f9c3b2a5d6e1f8a3c7b9d6e4f2a1b5c8e7d9f6a3c2.pdf";  // Link to the PDF file to redirect
 
         function validateAccess() {
+            const inputFileName = document.getElementById('fileName').value.trim();
             const inputPassword = document.getElementById('password').value.trim();
             const checkbox = document.getElementById('confirmation').checked;
 
-            if (inputPassword === password && checkbox) {
-                window.open(pdfURL, '_blank'); // Open the PDF in a new tab
+            // Check if file name, password, and checkbox match the pre-set values
+            if (inputFileName === validFileName && inputPassword === validPassword && checkbox) {
+                window.location.href = pdfLink;  // Redirect to the PDF link
             } else {
-                alert('Invalid password or you did not confirm responsibility. Please try again.');
+                alert('Invalid file name, password, or you did not confirm responsibility. Please try again.');
             }
         }
     </script>
@@ -104,8 +105,11 @@
         <h1>Confidential Data Access</h1>
         <p class="warning">Warning: You are accessing confidential data. Unauthorized access is strictly prohibited.</p>
         <form onsubmit="event.preventDefault(); validateAccess();">
+            <label for="fileName">Enter PDF File Name:</label>
+            <input type="text" id="fileName" name="fileName" placeholder="Enter the file name" required>
+
             <label for="password">Enter Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" placeholder="Enter the password" required>
 
             <label>
                 <input type="checkbox" id="confirmation">
