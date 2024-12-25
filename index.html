@@ -3,21 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Verification</title>
+    <title>12:48Login Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h3 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #response {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #response a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #response a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
 </head>
 <body>
-    <h3>Enter Your Credentials1240</h3>
-    <form id="loginForm" onsubmit="handleSubmit(event)">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br><br>
+    <div class="container">
+        <h3>Enter Your Credentials</h3>
+        <form id="loginForm" onsubmit="handleSubmit(event)">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
 
-        <button type="submit">Submit</button>
-    </form>
+            <button type="submit">Submit</button>
+        </form>
 
-    <p id="response" style="color: red;"></p>
+        <p id="response" class="error"></p>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
@@ -55,9 +141,11 @@
             if (user) {
                 // Show the file link in the response paragraph
                 document.getElementById('response').innerHTML = `Your file link: <a href="${user.file_link}" target="_blank">${user.file_link}</a>`;
+                document.getElementById('response').className = 'success';  // Success message styling
             } else {
                 // Display error if credentials are invalid
                 document.getElementById('response').textContent = 'Invalid credentials!';
+                document.getElementById('response').className = 'error';  // Error message styling
             }
         }
     </script>
