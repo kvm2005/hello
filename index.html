@@ -8,7 +8,7 @@
 <body>
     <h3>Enter Your Credentials</h3>
     <form id="loginForm" onsubmit="handleSubmit(event)">
-        <label for="username">Usernames:</label><br>
+        <label for="username">Username:</label><br>
         <input type="text" id="username" name="username" required><br><br>
 
         <label for="password">Password:</label><br>
@@ -35,7 +35,7 @@
                     complete: function(results) {
                         credentials = results.data;
                     },
-                    header: true // Assumes the first row contains headers like 'username', 'password', 'fileLink'
+                    header: true // Assumes the first row contains headers like 'username', 'password', 'file_link'
                 });
             })
             .catch(error => {
@@ -53,8 +53,8 @@
             const user = credentials.find(cred => cred.username === username && cred.password === password);
 
             if (user) {
-                // Open the corresponding file link in a new tab
-                window.open(user.file_link, '_blank');
+                // Show the file link in the response paragraph
+                document.getElementById('response').innerHTML = `Your file link: <a href="${user.file_link}" target="_blank">${user.file_link}</a>`;
             } else {
                 // Display error if credentials are invalid
                 document.getElementById('response').textContent = 'Invalid credentials!';
