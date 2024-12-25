@@ -82,7 +82,10 @@
     </style>
     <script>
         const password = "f0ed50e16ea42dc343ec55005c5c3d543e243679c95690215a226482bea8188c5f"; // Replace with your password
-        const pdfURL = "https://admit-cards.akshargyanmanch.site/7f8a3c1d5e9b241a6d8e7f9c3b2a5d6e1f8a3c7b9d6e4f2a1b5c8e7d9f6a3c2.pdf"; // Replace with your PDF link
+
+        // Get the file name dynamically
+        const pdfFileName = "7f8a3c1d5e9b241a6d8e7f9c3b2a5d6e1f8a3c7b9d6e4f2a1b5c8e7d9f6a3c2"; // This should be dynamically provided
+        const pdfURL = `https://admit-cards.akshargyanmanch.site/${pdfFileName}.pdf`; // PDF URL with dynamic file name
 
         function validateAccess() {
             const inputPassword = document.getElementById('password').value.trim();
