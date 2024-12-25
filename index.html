@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confidential Access</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            color: #d9534f;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        label {
+            font-size: 0.9rem;
+            color: #444;
+            text-align: left;
+        }
+        input[type="password"], input[type="checkbox"] {
+            margin-top: 5px;
+        }
+        input[type="password"] {
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        input[type="password"]:focus {
+            border-color: #007BFF;
+        }
+        button {
+            padding: 10px;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        button:active {
+            background-color: #003f7f;
+        }
+        .warning {
+            color: #d9534f;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        const password = "f0ed50e16ea42dc343ec55005c5c3d543e243679c95690215a226482bea8188c5f"; // Replace with your password
+        const pdfURL = "https://admit-cards.akshargyanmanch.site/7f8a3c1d5e9b241a6d8e7f9c3b2a5d6e1f8a3c7b9d6e4f2a1b5c8e7d9f6a3c2.pdf"; // Replace with your PDF link
+
+        function validateAccess() {
+            const inputPassword = document.getElementById('password').value.trim();
+            const checkbox = document.getElementById('confirmation').checked;
+
+            if (inputPassword === password && checkbox) {
+                window.open(pdfURL, '_blank'); // Open the PDF in a new tab
+            } else {
+                alert('Invalid password or you did not confirm responsibility. Please try again.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Confidential Data Access</h1>
+        <p class="warning">Warning: You are accessing confidential data. Unauthorized access is strictly prohibited.</p>
+        <form onsubmit="event.preventDefault(); validateAccess();">
+            <label for="password">Enter Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label>
+                <input type="checkbox" id="confirmation">
+                I confirm that I am an admin and take full responsibility for accessing this data.
+            </label>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
