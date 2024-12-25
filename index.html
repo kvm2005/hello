@@ -19,13 +19,29 @@
 
     <p id="response" style="color: red;"></p>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
-        // Predefined credentials and corresponding file links
-        const credentials = {
-            "aaaa": { password: "1234", fileLink: "https://admit-cards.akshargyanmanch.site/2500001.pdf" },
-            "aabb": { password: "3456", fileLink: "https://admit-cards.akshargyanmanch.site/2500002.pdf" },
-            "bbcc": { password: "5678", fileLink: "https://admit-cards.akshargyanmanch.site/2500003.pdf" }
-        };
+        // URL to your CSV file hosted on GitHub
+        const csvFileUrl = 'https://raw.githubusercontent.com/kvm2005/hello/refs/heads/main/credintials.csv';
+
+        let credentials = [];
+
+        // Fetch and parse the CSV file
+        fetch(csvFileUrl)
+            .then(response => response.text())
+            .then(data => {
+                // Parse CSV using PapaParse
+                Papa.parse(data, {
+                    complete: function(results) {
+                        credentials = results.data;
+                    },
+                    header: true // Assumes the first row contains headers like 'username', 'password', 'fileLink'
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching the CSV file:', error);
+                document.getElementById('response').textContent = 'Error loading credentials.';
+            });
 
         function handleSubmit(event) {
             event.preventDefault();
@@ -33,12 +49,14 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Check if the username exists
-            if (credentials[username] && credentials[username].password === password) {
-                // If credentials are correct, open the file in a new tab
-                window.open(credentials[username].fileLink, '_blank');
+            // Check if the credentials exist in the parsed CSV data
+            const user = credentials.find(cred => cred.username === username && cred.password === password);
+
+            if (user) {
+                // Open the corresponding file link in a new tab
+                window.open(user.fileLink, '_blank');
             } else {
-                // If credentials are incorrect, display an error message
+                // Display error if credentials are invalid
                 document.getElementById('response').textContent = 'Invalid credentials!';
             }
         }
